@@ -301,7 +301,17 @@ Actions:
 }
 
 
-let sportCar = SportCar(brand: "Tesla", model: "Roadster", color: .red, engine: false, windows: false, trunkFullness: 150, trunkVolume: 50, maxSpeed: 400, turbo: false, backseat: false)
+let sportCar = SportCar(brand: "Tesla",
+                        model: "Roadster",
+                        color: .red,
+                        engine: false,
+                        windows: false,
+                        trunkFullness: 150,
+                        trunkVolume: 50,
+                        maxSpeed: 400,
+                        turbo: false,
+                        backseat: false)
+
 sportCar.status()
 
 sportCar.windowsAction(type: .open)
