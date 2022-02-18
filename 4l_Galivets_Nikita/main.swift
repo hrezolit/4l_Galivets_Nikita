@@ -237,13 +237,14 @@ final class SportCar: Car {
     
     private var maxSpeed: UInt {
         didSet {
-            if maxSpeed > maxSpeed + turboBoosting {
+            if  maxSpeed < 400 {
                 maxSpeed = oldValue
-            } else if maxSpeed < maxSpeed - turboBoosting {
+            } else if maxSpeed > 500 {
                 maxSpeed = oldValue
             }
         }
     }
+    
     let turboBoosting: UInt = 100
     private var turboCondition: isTurboExist
     private let backseat: isBackseatExist
@@ -325,6 +326,15 @@ sportCar.status()
 sportCar.windowsAction(type: .open)
 sportCar.engineAction(type: .start)
 sportCar.setUpTurbo(type: .set)
+sportCar.setUpTurbo(type: .set)
+sportCar.setUpTurbo(type: .set)
+sportCar.setUpTurbo(type: .set)
+sportCar.setUpTurbo(type: .set)
+sportCar.setUpTurbo(type: .remove)
+sportCar.setUpTurbo(type: .remove)
+sportCar.setUpTurbo(type: .remove)
+sportCar.setUpTurbo(type: .remove)
+sportCar.setUpTurbo(type: .remove)
 sportCar.trunkAction(type: .putInTrunk)
 sportCar.trunkAction(type: .putInTrunk)
 
