@@ -42,11 +42,12 @@ class Car {
         case takeFromTrunk
     }
     
+    
     let brand: String
     let model: String
     let color: Color
-    var engine: Bool
-    var windows: Bool
+    var isEngineWork: Bool
+    var isWindowsOpen: Bool
     var trunkFullness: UInt
     var trunkVolume: UInt {
         didSet {
@@ -74,27 +75,27 @@ class Car {
         self.brand = brand
         self.model = model
         self.color = color
-        self.engine = engine
-        self.windows = windows
+        self.isEngineWork = engine
+        self.isWindowsOpen = windows
         self.trunkFullness = trunkFullness
         self.trunkVolume = trunkVolume
     }
     
     
     
-    ///Общии функции машин Открытие/Закрытие окон
+    ///Окна Открытие/Закрытие
     func windowsAction(type: Windows) {
         switch type {
         case .open:
-            windows = true
+            isWindowsOpen = true
             print("Windows were opened")
         case .close:
-            windows = false
+            isWindowsOpen = false
             print("Windows were closed")
         }
     }
     
-    //Взаимодействие с багажником Положить/Взять
+    ///Багажник Положить/Взять
     func trunkAction(type: Trunk) {
         switch type {
         case .putInTrunk:
@@ -103,24 +104,20 @@ class Car {
             trunkVolume -= 50
         }
     }
-    ///Общии функции машин Запуск/Остановка двигателя
+    ///Запуск/Остановка двигателя
     func engineAction(type: Engine) {
         switch type {
         case .start:
-            engine = true
+            isEngineWork = true
             print("Car engine is power on")
         case .stop:
-            engine = false
+            isEngineWork = false
             print("Car engine is power off")
         }
     }
-    
+    ///Пустой метод
     func status() {
         
-    }
-    
-    deinit {
-        print("Class Car was deleted.")
     }
 }
 
@@ -130,7 +127,7 @@ class Car {
 final class Truck: Car {
     
     
-    private var hindcarrige: Bool
+    private var isHindcarrigeExist: Bool
     private let hindcarrigeFullness: UInt
     private var hindcarriageVolume: UInt {
         didSet {
@@ -159,7 +156,7 @@ final class Truck: Car {
          hindcarrigeFullness: UInt,
          hindcarriageVolume: UInt) {
         
-        self.hindcarrige = hindcarrige
+        self.isHindcarrigeExist = hindcarrige
         self.hindcarrigeFullness = hindcarrigeFullness
         self.hindcarriageVolume = hindcarriageVolume
         
@@ -180,8 +177,8 @@ Car description:
 Brand: \(brand)
 Model: \(model)
 Body color: \(color)
-Engind: \(engine)
-Windows: \(windows)
+Engind: \(isEngineWork)
+Windows: \(isWindowsOpen)
 Trunk space: \(trunkFullness)
 Hindcarrige space: \(hindcarrigeFullness)
 
@@ -217,6 +214,7 @@ truck.trunkAction(type: .putInTrunk)
 truck.engineAction(type: .start)
 truck.windowsAction(type: .open)
 print(truck.overallVolume)
+
 
 print("******************************************")
 
@@ -287,10 +285,10 @@ Car description:
 Brand: \(brand)
 Model: \(model)
 Body color: \(color)
-Engind: \(engine)
+Engind: \(isEngineWork)
 Max speed: \(maxSpeed)
 Turbo: \(turbo)
-Windows: \(windows)
+Windows: \(isWindowsOpen)
 Backseat: \(backseat)
 Trunk space: \(trunkFullness)
 
