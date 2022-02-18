@@ -46,8 +46,8 @@ class Car {
     let brand: String
     let model: String
     let color: Color
-    var isEngineWork: Bool
-    var isWindowsOpen: Bool
+    var isEngineWork: Engine
+    var isWindowsOpen: Windows
     var trunkFullness: UInt
     var trunkVolume: UInt {
         didSet {
@@ -67,8 +67,8 @@ class Car {
     init(brand: String,
          model: String,
          color: Color,
-         engine: Bool,
-         windows: Bool,
+         engine: Engine,
+         windows: Windows,
          trunkFullness: UInt,
          trunkVolume: UInt)
     {
@@ -87,10 +87,10 @@ class Car {
     func windowsAction(type: Windows) {
         switch type {
         case .open:
-            isWindowsOpen = true
+            isWindowsOpen = .open
             print("Windows were opened")
         case .close:
-            isWindowsOpen = false
+            isWindowsOpen = .close
             print("Windows were closed")
         }
     }
@@ -108,10 +108,10 @@ class Car {
     func engineAction(type: Engine) {
         switch type {
         case .start:
-            isEngineWork = true
+            isEngineWork = .start
             print("Car engine is power on")
         case .stop:
-            isEngineWork = false
+            isEngineWork = .stop
             print("Car engine is power off")
         }
     }
@@ -126,8 +126,12 @@ class Car {
 
 final class Truck: Car {
     
+    enum  HindcarrigeCondition{
+        case set
+        case remove
+    }
     
-    private var isHindcarrigeExist: Bool
+    private var isHindcarrigeExist: HindcarrigeCondition
     private let hindcarrigeFullness: UInt
     private var hindcarriageVolume: UInt {
         didSet {
@@ -148,11 +152,11 @@ final class Truck: Car {
     init(brand: String,
          model: String,
          color: Color,
-         engine: Bool,
-         windows: Bool,
+         engine: Engine,
+         windows: Windows,
          trunkVolume: UInt,
          trunkFullness: UInt,
-         hindcarrige: Bool,
+         hindcarrige: HindcarrigeCondition,
          hindcarrigeFullness: UInt,
          hindcarriageVolume: UInt) {
         
@@ -195,11 +199,11 @@ Actions:
 var truck = Truck(brand: "Tesla",
                   model: "Semi",
                   color: .silver,
-                  engine: false,
-                  windows: false,
+                  engine: .stop,
+                  windows: .close,
                   trunkVolume: 1000,
                   trunkFullness: 3000,
-                  hindcarrige: true,
+                  hindcarrige: .set,
                   hindcarrigeFullness: 1500,
                   hindcarriageVolume: 1000)
 
@@ -221,9 +225,13 @@ print("******************************************")
 //MARK: - Sportcar class
 final class SportCar: Car {
     
-    enum Turbo {
+    enum isTurboExist {
         case set
         case remove
+    }
+    enum isBackseatExist {
+        case with
+        case without
     }
     
     private var maxSpeed: UInt {
@@ -235,22 +243,22 @@ final class SportCar: Car {
             }
         }
     }
-    private var turbo: Bool
-    private let backseat: Bool
+    private var turboCondition: isTurboExist
+    private let backseat: isBackseatExist
     
     init(brand: String,
          model: String,
          color: Color,
-         engine: Bool,
-         windows: Bool,
+         engine: Engine,
+         windows: Windows,
          trunkFullness: UInt,
          trunkVolume: UInt,
          maxSpeed: UInt,
-         turbo: Bool,
-         backseat: Bool) {
+         turbo: isTurboExist,
+         backseat: isBackseatExist) {
         
         self.maxSpeed = maxSpeed
-        self.turbo = turbo
+        self.turboCondition = turbo
         self.backseat = backseat
         
         super.init(brand: brand,
@@ -262,15 +270,15 @@ final class SportCar: Car {
                    trunkVolume: trunkVolume)
     }
     
-    func setUpTurbo(type: Turbo) {
+    func setUpTurbo(type: isTurboExist) {
         
         switch type {
         case .set:
-            turbo = true
+            turboCondition = .set
             maxSpeed += 100
             print("With turbo, max speed up by \(maxSpeed) km/h")
         case .remove:
-            turbo = false
+            turboCondition = .remove
             maxSpeed -= 100
             print("Without turbo, max speed dicrease by \(maxSpeed) km/h")
             
@@ -287,7 +295,7 @@ Model: \(model)
 Body color: \(color)
 Engind: \(isEngineWork)
 Max speed: \(maxSpeed)
-Turbo: \(turbo)
+Turbo: \(turboCondition)
 Windows: \(isWindowsOpen)
 Backseat: \(backseat)
 Trunk space: \(trunkFullness)
@@ -302,13 +310,13 @@ Actions:
 let sportCar = SportCar(brand: "Tesla",
                         model: "Roadster",
                         color: .red,
-                        engine: false,
-                        windows: false,
+                        engine: .stop,
+                        windows: .close,
                         trunkFullness: 150,
                         trunkVolume: 50,
                         maxSpeed: 400,
-                        turbo: false,
-                        backseat: false)
+                        turbo: .remove,
+                        backseat: .without)
 
 sportCar.status()
 
