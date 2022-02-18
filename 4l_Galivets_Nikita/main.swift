@@ -15,6 +15,7 @@ import Foundation
 
 
 //MARK: - Main class "Car"
+
 class Car {
     
     enum Color {
@@ -236,13 +237,14 @@ final class SportCar: Car {
     
     private var maxSpeed: UInt {
         didSet {
-            if maxSpeed > 500 {
-                maxSpeed = 500
-            } else if maxSpeed < 400 {
+            if maxSpeed > maxSpeed + turboBoosting {
+                maxSpeed = oldValue
+            } else if maxSpeed < maxSpeed - turboBoosting {
                 maxSpeed = oldValue
             }
         }
     }
+    let turboBoosting: UInt = 100
     private var turboCondition: isTurboExist
     private let backseat: isBackseatExist
     
@@ -275,11 +277,11 @@ final class SportCar: Car {
         switch type {
         case .set:
             turboCondition = .set
-            maxSpeed += 100
+            maxSpeed += turboBoosting
             print("With turbo, max speed up by \(maxSpeed) km/h")
         case .remove:
             turboCondition = .remove
-            maxSpeed -= 100
+            maxSpeed -= turboBoosting
             print("Without turbo, max speed dicrease by \(maxSpeed) km/h")
             
         }
@@ -323,7 +325,6 @@ sportCar.status()
 sportCar.windowsAction(type: .open)
 sportCar.engineAction(type: .start)
 sportCar.setUpTurbo(type: .set)
-sportCar.setUpTurbo(type: .remove)
 sportCar.trunkAction(type: .putInTrunk)
 sportCar.trunkAction(type: .putInTrunk)
 
